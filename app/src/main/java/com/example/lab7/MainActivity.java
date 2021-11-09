@@ -26,20 +26,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendOnChannel1(View v) {
-        String title = editTextTitle.getText().toString();
-        String message = editTextMessage.getText().toString();
-
-        Notification notification = new NotificationCompat.Builder(this, App.CHANNEL_1_ID)
-                .setSmallIcon(R.drawable.ic_chat_black_24dp)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                .build();
-        notificationManager.notify(1, notification);
-    }
-
-    public void sendOnChannel2(View v) {
+        editTextTitle = (EditText) findViewById(R.id.EditTextTitle);
+        editTextMessage = (EditText) findViewById(R.id.EditTextMessage);
         String title = editTextTitle.getText().toString();
         String message = editTextMessage.getText().toString();
 
@@ -51,17 +39,31 @@ public class MainActivity extends AppCompatActivity {
         PendingIntent actionIntent = PendingIntent.getBroadcast(this,
                 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Notification notification = new NotificationCompat.Builder(this, App.CHANNEL_2_ID)
-                .setSmallIcon(R.drawable.ic_outline_chat_24dp)
+        Notification notification = new NotificationCompat.Builder(this, App.CHANNEL_1_ID)
+                .setSmallIcon(R.drawable.ic_chat_black_24dp)
                 .setContentTitle(title)
                 .setContentText(message)
-                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .setColor(Color.BLUE)
                 .setContentIntent(contentIntent)
                 .setAutoCancel(true)
                 .setOnlyAlertOnce(true)
                 .addAction(R.mipmap.ic_launcher, "Toast", actionIntent)
+                .build();
+        notificationManager.notify(1, notification);
+    }
+
+    public void sendOnChannel2(View v) {
+        String title = editTextTitle.getText().toString();
+        String message = editTextMessage.getText().toString();
+
+        Notification notification = new NotificationCompat.Builder(this, App.CHANNEL_2_ID)
+                .setSmallIcon(R.drawable.ic_outline_chat_24dp)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .build();
         notificationManager.notify(2, notification);
     }
